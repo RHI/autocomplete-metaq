@@ -59,11 +59,12 @@ var ac = new autocomplete({
 | results    | css-style selector for elements that intend to be used as result container |
 | api        | RAMP's MetaQ Autocomplete API URL |
 | jsonp      | Use JSONP for the request to the API |
-| categories | Array of category objects that capture responses from the API |
+| categories | Array of category objects that capture responses from the API. See below for explanation of parameters |
 
-#####Categories
+#####Categories Array
 
 | Parameter | Value |
+| --------- | ----- |
 | category  | Name of category, will be available to templates as *this.category* |
 | dataKey   | Some implementations will use a delimited string to store category-specific data.  This is the name of that property in the JSON response
 | delimiter | If a delimiter is defined, then the dataKey above will attempt to be accessed and split using this delimiter
