@@ -115,11 +115,7 @@ To access the delimited data from the Autocomplete MetaQ response simply referen
 	</div>
 	<div class="ac-category-content">
 		{{#each this.data}}
-			<div class="ac-image-card-large">
-				<!--<div class="ac-image-crop-large">-->
-					<!--<img class="ac-image-large" src="">-->
-				<!--</div>-->
-				
+			<div class="ac-image-card-large">	
 				<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
 					{{this.term}}
 				</a>
