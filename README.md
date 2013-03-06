@@ -62,10 +62,11 @@ var ac = new autocomplete({
 | categories | Array of category objects that capture responses from the API. See below for explanation of parameters |
 
 #####Categories Array
-: | Parameter | Value |
-: | --------- | ----- |
-: | category  | Name of category, will be available to templates as *this.category* |
-: | dataKey   | Some implementations will use a delimited string to store category-specific data.  This is the name of that property in the JSON response
-: | delimiter | If a delimiter is defined, then the dataKey above will attempt to be accessed and split using this delimiter
-: | dataLimit | Sets a limit on how many results are returned to the template |
-: | template  | location of the Handlebars template to be used for this category |
+
+| Parameter | Value |
+| --------- | ----- |
+| category  | Name of category, will be available to templates as *this.category* |
+| dataKey   | Some implementations will use a delimited string to store category-specific data.  This is the name of that property in the JSON response
+| delimiter | If a delimiter is defined, then the dataKey above will attempt to be accessed and split using this delimiter
+| dataLimit | Sets a limit on how many results are returned to the template |
+| template  | location of the Handlebars template to be used for this category |
