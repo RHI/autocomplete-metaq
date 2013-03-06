@@ -70,3 +70,81 @@ var ac = new autocomplete({
 | delimiter | If a delimiter is defined, then the dataKey above will attempt to be accessed and split using this delimiter
 | dataLimit | Sets a limit on how many results are returned to the template |
 | template  | location of the Handlebars template to be used for this category |
+
+####Template Use
+
+##### Non-Delimeted Category
+
+Any property of the response from the Autocomplete service that was generated through MetaQ will be available here, by name.  Also, the category name, as defined during instantation, is available.
+
+````
+<div class="ac-category">
+	<div class="ac-category-header ac-clearfix">
+		{{this.category}}
+	</div>
+	
+	<div class="ac-category-content">
+		{{#each this.data}}
+			{{#with this.data}}
+				<a href="{{Link}}" title="{{Title}}">
+					<div class="ac-image-card">
+						<div class="ac-image-crop">
+							<img class="ac-image" src="{{Thumbnail}}">
+						</div>
+						<div class="ac-image-caption-container">
+							<div class="ac-image-caption-text">
+								{{Title}}
+							</div>
+						</div>
+					</div>
+				</a>
+			{{/with}}
+		{{/each}}
+	</div>
+</div>
+````
+
+#####Delimited Category
+
+To access the delimited data from the Autocomplete MetaQ response simply reference it by its position in the array that results from a *split* operation.  Again, the category name will be available.
+
+````
+<div class="ac-category">
+	<div class="ac-category-header ac-clearfix">
+		{{this.category}}
+	</div>
+	<div class="ac-category-content">
+		{{#each this.data}}
+			<div class="ac-image-card-large">
+				<!--<div class="ac-image-crop-large">-->
+					<!--<img class="ac-image-large" src="">-->
+				<!--</div>-->
+				
+				<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
+					{{this.term}}
+				</a>
+
+				<div class="ac-image-items-large">
+					<ul class="ac-image-items-list">
+						{{#each this.data}}
+							{{#with this}}
+								<a class="ac-no-underline" href="{{[1]}}">
+									<li class="ac-image-item-large {{mediaIcon [3]}}">
+										{{[0]}}
+									</li>
+								</a>
+							{{/with}}
+						{{/each}}
+					</ul>
+				</div>
+			</div>
+			<div class="ac-clearfix"></div>
+		{{/each}}
+	</div>
+</div>
+````
+
+Example
+---
+
+[MetaQ Autocomplete Example Implementation](//rhi.github.com/autocomplete-metaq)
