@@ -143,4 +143,4 @@ To access the delimited data from the Autocomplete MetaQ response simply referen
 Example
 ---
 
-[MetaQ Autocomplete Example Implementation](http://rhi.github.com/autocomplete-metaq)
+[MetaQ Autocomplete Example Implementation](http://rhi.github.com/autocomplete-metaq/example/example.html)
