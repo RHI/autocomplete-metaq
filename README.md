@@ -24,6 +24,8 @@ var ac = new autocomplete({
 	search: "#search",
 	results: "#list .ac-results-container .ac-results-list",
 	api: "//publishing.ramp.com/autocomplete/crackle",
+	searchLocation: "//sitename.com/search?searchTerm=",
+	searchTemplate: "tpl/search.handlebars",
 	jsonp: true,
 	//api: "test.json",
 	
@@ -58,6 +60,8 @@ var ac = new autocomplete({
 | search     | css-style selector for elements that intend to be used as input |
 | results    | css-style selector for elements that intend to be used as result container |
 | api        | RAMP's MetaQ Autocomplete API URL |
+| searchLocation | URL for the site that does a search on term, with term appended to the end of the URL |
+| searchTemplate | location of Handlebars template to be used for the "search for term" portion of the results container |
 | jsonp      | Use JSONP for the request to the API |
 | categories | Array of category objects that capture responses from the API. See below for explanation of parameters |
 
@@ -156,6 +160,14 @@ To access the delimited data from the Autocomplete MetaQ response simply referen
 	</ul>
 </div>
 <div class="ac-clearfix"></div>
+````
+
+#####The Search Template
+
+````
+<div class="ac-search-for-term">
+	Click <a href="{{searchLocation}}">here</a> for all <b>{{searchTerm}}</b> results.
+</div>
 ````
 
 Handlebars Helpers

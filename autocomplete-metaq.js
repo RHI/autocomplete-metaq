@@ -36,6 +36,16 @@
 				});
 			});
 
+			// fetch search template if it exists
+			if ( this.searchTemplate ) {
+				$.ajax({
+					url: this.searchTemplate,
+					dataType: "html"
+				}).done(function( data ) {
+					self.searchTemplate = Handlebars.compile( data );
+				});
+			}
+
 			this.bindListeners();
 		},
 
@@ -153,7 +163,7 @@
 			var i = 0,
 				length = processedData.length;
 
-			// this needs to be optimized - don't do so many DOM inserts
+			// this could be optimized - less DOM inserts to avoid reflow/repaint
 
 			// clear
 			this.results.html("");
@@ -167,6 +177,11 @@
 					} ) );
 				}
 			}
+
+			this.results.append( this.searchTemplate( {
+				searchTerm: this.search.val(),
+				searchUrl: this.searchLocation +this.search.val()
+			} ) );
 
 			this.results.show();
 		}

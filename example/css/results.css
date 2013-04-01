@@ -169,3 +169,8 @@ a.ac-image-caption-text-large {
 	color: #c1c1c1;
 	text-transform: uppercase;
 }
+
+.ac-search-for-term {
+	text-align: center;
+	padding: 10px 0;
+}
