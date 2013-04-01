@@ -78,11 +78,6 @@ var ac = new autocomplete({
 Any property of the response from the Autocomplete service that was generated through MetaQ will be available here, by name.  Also, the category name, as defined during instantation, is available.
 
 ````
-<div class="ac-category">
-	<div class="ac-category-header ac-clearfix">
-		{{this.category}}
-	</div>
-	
 	<div class="ac-results-container">
 		<ul class="ac-results-list">
 			<div class="ac-category">
@@ -128,39 +123,39 @@ Any property of the response from the Autocomplete service that was generated th
 To access the delimited data from the Autocomplete MetaQ response simply reference it by its position in the array that results from a *split* operation.  Again, the category name will be available.
 
 ````
-<div class="ac-results-container">
-	<ul class="ac-results-list">
-		<div class="ac-category">
-			<div class="ac-category-header ac-clearfix">
-				{{this.category}}
-			</div>
-			
-			<div class="ac-category-content">
-				{{#each this.data}}
-					{{#with this.data}}
-						<a href="{{Link}}" title="{{Title}}">
-							<div class="ac-image-card">
-								<div class="ac-image-crop">
-									<img class="ac-image" src="{{Thumbnail}}">
-								</div>
-								<div class="ac-image-caption-container">
-									<div class="ac-image-caption-text">
-										{{#if DisplayName}}
-											{{highlightMatch DisplayName ../../../this.searchTerm}}
-										{{else}}
-											{{highlightMatch Title ../../../this.searchTerm}}
-										{{/if}}
+	<div class="ac-results-container">
+		<ul class="ac-results-list">
+			<div class="ac-category">
+				<div class="ac-category-header ac-clearfix">
+					{{this.category}}
+				</div>
+				
+				<div class="ac-category-content">
+					{{#each this.data}}
+						{{#with this.data}}
+							<a href="{{Link}}" title="{{Title}}">
+								<div class="ac-image-card">
+									<div class="ac-image-crop">
+										<img class="ac-image" src="{{Thumbnail}}">
+									</div>
+									<div class="ac-image-caption-container">
+										<div class="ac-image-caption-text">
+											{{#if DisplayName}}
+												{{highlightMatch DisplayName ../../../this.searchTerm}}
+											{{else}}
+												{{highlightMatch Title ../../../this.searchTerm}}
+											{{/if}}
+										</div>
 									</div>
 								</div>
-							</div>
-						</a>
-					{{/with}}
-				{{/each}}
+							</a>
+						{{/with}}
+					{{/each}}
+				</div>
 			</div>
-		</div>
-	</ul>
-</div>
-<div class="ac-clearfix"></div>
+		</ul>
+	</div>
+	<div class="ac-clearfix"></div>
 ````
 
 Handlebars Helpers
