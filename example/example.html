@@ -1,0 +1,222 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+
+			body {
+				font-family: Arial;
+				font-size: 12px;
+				font-color: #a0a0a0;
+				margin: 0 auto;
+			}
+
+			
+
+			.container {
+				position: relative;
+			}
+
+			.boxes:before {
+				-webkit-transform: rotate(-1deg);
+				-moz-transform: rotate(-1deg);
+				-ms-transform: rotate(-1deg);
+				-o-transform: rotate(-1deg);
+				transform: rotate(-1deg);
+				bottom: 15px;
+				left: 5px;
+				width: 58%;
+				height: 10%;
+				-webkit-box-shadow: 0 15px 6px rgba(0, 0, 0, 0.3);
+				-moz-box-shadow: 0 15px 6px rgba(0,0,0,0.3);
+				box-shadow: 0 15px 6px rgba(0, 0, 0, 0.3);
+				-webkit-transform: rotate(-1.7deg);
+				-moz-transform: rotate(-1.7deg);
+				-ms-transform: rotate(-1.7deg);
+				-o-transform: rotate(-1.7deg);
+				transform: rotate(-1.7deg);
+				backface-visibility: hidden;
+				position: absolute;
+				z-index: -2;
+				content: "";
+			}
+
+			.boxes {
+				padding: 5px;
+				background: #fff;
+				-webkit-border-radius: 3px;
+				border-radius: 3px;
+				-moz-border-radius: 3px;
+				position: relative;
+				border: 1px solid #d0d0d0;
+				margin: 0 auto;
+			}
+
+			#search {
+				border: 1px solid #c7c7c7;
+				background: url("http://www.crackle.com/styles/themes/default/images/bg_search.png") repeat-x;
+				height: 16px;
+				width: 244px;
+				padding-left: 5px;
+				margin: 0 auto;
+				color: #404040;
+				font-size: 9px;
+				font-family: Verdana,Geneva,sans-serif;
+
+			}
+
+			#search::-webkit-input-placeholder {
+				color: #404040;
+				font-family: Verdana,Geneva,sans-serif;
+			}
+
+			#search::-moz-input-placeholder {
+				color: #404040;
+				font-family: Verdana,Geneva,sans-serif;
+			}
+
+			#search:focus {
+				outline: none;
+			}
+
+			.search-icon {
+				background: url("img/search-icon.gif") no-repeat;
+				border: 1px solid #c7c7c7;				
+				width: 27px;
+				height: 18px;
+				display: inline-block;
+				position: relative;
+				top: 6px;
+				left: 0;
+			}
+
+			header {
+				font-size: 30px;
+				font-family: Arial;
+				color: #f0f0f0;
+				text-align: center;
+			}
+
+			code {
+				padding: 2px 4px;
+				background: rgba(0,0,0,.05);
+				border-radius: 2px;
+			}
+
+			ol {
+				line-height: 20px;
+			}
+
+			.background {
+				background: url("img/crackle_bg.jpg") no-repeat;
+				width: 1020px;
+				height: 683px;
+				position: relative;
+				margin: 0 auto;
+			}
+
+			.search-container {
+				position: absolute;
+				right: 25px;
+				top: 64px;
+				width: 282px;
+			}
+
+		</style>
+
+		<link rel="stylesheet" href="css/results.css">
+
+		<!-- ***** For IE8 -->
+		<!--[if IE 8]>
+			<style>
+				.search-container {
+					top: 62px;
+				}
+				.search-icon {
+					top: 8px;
+				}
+			</style>
+		<![endif]-->
+	</head>
+
+	<body>
+		<div class="background">
+			
+			
+		<div class="search-container">
+			<input id="search" placeholder="Search Crackle"><div class="search-icon"></div>
+			<div id="list">
+				<div class="ac-results-container">
+					<ul class="ac-results-list">
+						
+					</ul>
+					
+				</div>
+			</div>
+			</div>
+
+		<script src="//code.jquery.com/jquery-1.8.3.min.js"></script>
+		<script src="js/handlebars.js"></script>
+		<script src="../autocomplete-metaq.js"></script>
+
+		<script>
+			$(function () {
+
+				// looks at type, sent in from template, and returns the css
+				// class for the appropriate image icon
+				Handlebars.registerHelper( "mediaIcon", function( type ) {
+					switch ( type ) {
+						case "Clips":
+						case "Trailer":
+							return "ac-image-item-clip";
+							break;
+						case "movie":
+							return "ac-image-item-movie";
+							break;
+						case "show":
+							return "ac-image-item-show";
+							break;
+					}
+				});
+
+				Handlebars.registerHelper( "highlightMatch", function( label, searchTerm ) {
+					if ( label instanceof Array ) {
+						label = label[0];
+					}
+					// should use regex to ignore case
+					return new Handlebars.SafeString( label.toLowerCase().replace( searchTerm.toLowerCase(), "<b>" +searchTerm +"</b>" ) );
+				});
+
+				// MetaQ API
+				var ac = new autocomplete({
+					search: "#search",
+					results: "#list",
+					api: "//publishing.ramp.com/autocomplete/crackle",
+					jsonp: true,
+					//api: "test.json",
+					
+					categories: [
+						{
+							category: "Movies",
+							dataType: "movie",
+							template: "tpl/movie.handlebars"
+						},
+						{
+							category: "Shows",
+							dataType: "show",
+							template: "tpl/movie.handlebars"
+						},
+						{
+							category: "Actors",
+							delimiter: "~",
+							// must be set if using delimiter
+							dataType: "actor",
+							dataKey: "Movie",
+							dataLimit: 4,
+							template: "tpl/actor.handlebars"							
+						}
+					]
+				});
+			});
+		</script>
+	</body>
+</html>
