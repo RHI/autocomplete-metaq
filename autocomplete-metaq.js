@@ -77,7 +77,6 @@
 			});
 
 			deferred.done( function( data ) {
-				console.log(data);
 				self.process( data.ac.q );
 			});
 		},
