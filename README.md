@@ -83,25 +83,44 @@ Any property of the response from the Autocomplete service that was generated th
 		{{this.category}}
 	</div>
 	
-	<div class="ac-category-content">
-		{{#each this.data}}
-			{{#with this.data}}
-				<a href="{{Link}}" title="{{Title}}">
-					<div class="ac-image-card">
-						<div class="ac-image-crop">
-							<img class="ac-image" src="{{Thumbnail}}">
-						</div>
-						<div class="ac-image-caption-container">
-							<div class="ac-image-caption-text">
-								{{Title}}
+	<div class="ac-results-container">
+		<ul class="ac-results-list">
+			<div class="ac-category">
+				<div class="ac-category-header ac-clearfix">
+					{{this.category}}
+				</div>
+				<div class="ac-category-content">
+					{{#each this.data}}
+						<div class="ac-image-card-large">
+							<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
+								{{#if this.displayName}}
+									{{highlightMatch ../this.displayName ../../this.searchTerm}}
+								{{else}}
+									{{highlightMatch ../this.term ../../this.searchTerm}}
+								{{/if}}
+							</a>
+
+							<div class="ac-image-items-large">
+								<ul class="ac-image-items-list">
+									{{#each this.data}}
+										{{#with this}}
+											<a class="ac-no-underline" href="{{[1]}}">
+												<li class="ac-image-item-large {{mediaIcon [3]}}">
+													{{[0]}}
+												</li>
+											</a>
+										{{/with}}
+									{{/each}}
+								</ul>
 							</div>
 						</div>
-					</div>
-				</a>
-			{{/with}}
-		{{/each}}
+						<div class="ac-clearfix"></div>
+					{{/each}}
+				</div>
+			</div>
+		</ul>
 	</div>
-</div>
+	<div class="ac-clearfix"></div>
 ````
 
 #####Delimited Category
@@ -109,35 +128,79 @@ Any property of the response from the Autocomplete service that was generated th
 To access the delimited data from the Autocomplete MetaQ response simply reference it by its position in the array that results from a *split* operation.  Again, the category name will be available.
 
 ````
-<div class="ac-category">
-	<div class="ac-category-header ac-clearfix">
-		{{this.category}}
-	</div>
-	<div class="ac-category-content">
-		{{#each this.data}}
-			<div class="ac-image-card-large">	
-				<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
-					{{this.term}}
-				</a>
-
-				<div class="ac-image-items-large">
-					<ul class="ac-image-items-list">
-						{{#each this.data}}
-							{{#with this}}
-								<a class="ac-no-underline" href="{{[1]}}">
-									<li class="ac-image-item-large {{mediaIcon [3]}}">
-										{{[0]}}
-									</li>
-								</a>
-							{{/with}}
-						{{/each}}
-					</ul>
-				</div>
+<div class="ac-results-container">
+	<ul class="ac-results-list">
+		<div class="ac-category">
+			<div class="ac-category-header ac-clearfix">
+				{{this.category}}
 			</div>
-			<div class="ac-clearfix"></div>
-		{{/each}}
-	</div>
+			
+			<div class="ac-category-content">
+				{{#each this.data}}
+					{{#with this.data}}
+						<a href="{{Link}}" title="{{Title}}">
+							<div class="ac-image-card">
+								<div class="ac-image-crop">
+									<img class="ac-image" src="{{Thumbnail}}">
+								</div>
+								<div class="ac-image-caption-container">
+									<div class="ac-image-caption-text">
+										{{#if DisplayName}}
+											{{highlightMatch DisplayName ../../../this.searchTerm}}
+										{{else}}
+											{{highlightMatch Title ../../../this.searchTerm}}
+										{{/if}}
+									</div>
+								</div>
+							</div>
+						</a>
+					{{/with}}
+				{{/each}}
+			</div>
+		</div>
+	</ul>
 </div>
+<div class="ac-clearfix"></div>
+````
+
+Handlebars Helpers
+---
+
+Note that there are 2 Handlebars helper functions that we created to help us render content using thes templates.
+These helpers are *highlightMatch* and *mediaIcon* and they were not included in the library itself to maintain a strict
+divorce of content and presentation.
+
+The *highlightMatch* helper:
+
+````
+	Handlebars.registerHelper( "highlightMatch", function( label, searchTerm ) {
+		if ( label instanceof Array ) {
+			label = label[0];
+		}
+		// should use regex to ignore case
+		return new Handlebars.SafeString( label.toLowerCase().replace( searchTerm.toLowerCase(), "<b>" +searchTerm +"</b>" ) );
+	});
+````
+
+The *mediaIcon* helper:
+
+````
+	// looks at type, sent in from template, and returns the css
+	// class for the appropriate image icon
+	Handlebars.registerHelper( "mediaIcon", function( type ) {
+		switch ( type ) {
+			case "Clips":
+			case "Trailer":
+				return "ac-image-item-clip";
+				break;
+			case "movie":
+				return "ac-image-item-movie";
+				break;
+			case "show":
+				return "ac-image-item-show";
+				break;
+		}
+	});
 ````
 
 Example

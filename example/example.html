@@ -149,7 +149,7 @@
 					<ul class="ac-results-list">
 						
 					</ul>
-					<div class="ac-clearfix"></div>
+					
 				</div>
 			</div>
 			</div>
@@ -178,10 +178,18 @@
 					}
 				});
 
+				Handlebars.registerHelper( "highlightMatch", function( label, searchTerm ) {
+					if ( label instanceof Array ) {
+						label = label[0];
+					}
+					// should use regex to ignore case
+					return new Handlebars.SafeString( label.toLowerCase().replace( searchTerm.toLowerCase(), "<b>" +searchTerm +"</b>" ) );
+				});
+
 				// MetaQ API
 				var ac = new autocomplete({
 					search: "#search",
-					results: "#list .ac-results-container .ac-results-list",
+					results: "#list",
 					api: "//publishing.ramp.com/autocomplete/crackle",
 					jsonp: true,
 					//api: "test.json",

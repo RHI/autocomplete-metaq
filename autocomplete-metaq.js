@@ -1,14 +1,3 @@
-/*!
- * MetaQ Based Autocomplete Widget
- * v1.0.0
- * http://jsfiddle.com/asdfasdf
- *
- * Copyright 2013 Paul Ramos, RAMP Holdings, Inc.
- * Released under the MIT license
- *
- * Date: Tue Mar 05 2013 14:35:01 GMT-0400 (Eastern Daylight Time)
- */
-
 (function( jQuery ) {
 	var autocomplete,
 		$ = jQuery;
@@ -62,13 +51,13 @@
 				}, 300 );
 			});
 
-			// this.search.bind( "blur", function() {
-			// 	self.results.hide();
-			// });
+			this.search.bind( "blur", function() {
+				self.results.hide();
+			});
 
-			// this.results.bind( "blur", function() {
-			// 	self.results.hide();
-			// });
+			this.results.bind( "blur", function() {
+				self.results.hide();
+			});
 		},
 
 		getData: function() {
@@ -88,6 +77,7 @@
 			});
 
 			deferred.done( function( data ) {
+				console.log(data);
 				self.process( data.ac.q );
 			});
 		},
@@ -96,7 +86,8 @@
 			var category, currentData, categoryData, processedData = [ ],
 				i, j, k,
 				delimitedData,
-				categories = this.categories;
+				categories = this.categories,
+				displayName;
 
 			// consider doing this in a Web Worker if performance becomes an issue
 			for ( i = 0; i < categories.length; i++ ) {
@@ -116,6 +107,15 @@
 						continue;
 					}
 
+
+
+					if ( currentData.m.mq.DisplayName && currentData.m.mq.DisplayName[0] ) {
+						displayName = currentData.m.mq.DisplayName;
+					}
+					else {
+						displayName = null;
+					}
+
 					if ( category.dataType == currentData.m.mq.Type ) {
 						categoryData = category.dataKey ? currentData.m.mq[ category.dataKey ] : categoryData = currentData.m.mq;
 
@@ -130,6 +130,7 @@
 
 							processedData[ i ].data.push({
 								term: currentData.s,
+								displayName: displayName,
 								data: delimitedData,
 								sp: currentData.m.sp
 							});
@@ -137,6 +138,7 @@
 						else {
 							processedData[ i ].data.push({
 								term: currentData.s,
+								displayName: displayName,
 								data: categoryData,
 								sp: currentData.m.sp
 							});
@@ -152,6 +154,8 @@
 			var i = 0,
 				length = processedData.length;
 
+			// this needs to be optimized - don't do so many DOM inserts
+
 			// clear
 			this.results.html("");
 
@@ -159,7 +163,8 @@
 				if ( processedData[ i ].data.length > 0 ) {
 					this.results.append( processedData[ i ].template( {
 						category: processedData[ i ].name,
-						data: processedData[ i ].data
+						data: processedData[ i ].data,
+						searchTerm: this.search.val()
 					} ) );
 				}
 			}
