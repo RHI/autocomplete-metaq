@@ -19,7 +19,7 @@ Implementation
 
 This widget creates a function on the window object named *autocomplete*.  The constructor takes an options hash as a parameter. 
 
-````
+````javascript
 var ac = new autocomplete({
 	search: "#search",
 	results: "#list .ac-results-container .ac-results-list",
@@ -81,7 +81,7 @@ var ac = new autocomplete({
 
 Any property of the response from the Autocomplete service that was generated through MetaQ will be available here, by name.  Also, the category name, as defined during instantation, is available.
 
-````
+````html
 <div class="ac-category ac-clearfix">
 	<div class="ac-category-header">
 		{{this.category}}
@@ -120,7 +120,7 @@ Any property of the response from the Autocomplete service that was generated th
 
 To access the delimited data from the Autocomplete MetaQ response simply reference it by its position in the array that results from a *split* operation.  Again, the category name will be available.
 
-````
+````html
 <div class="ac-category ac-clearfix">
 	<div class="ac-category-header">
 		{{this.category}}
@@ -153,7 +153,7 @@ To access the delimited data from the Autocomplete MetaQ response simply referen
 
 #####The Search Template
 
-````
+````html
 <div class="ac-search-for-term">
 	Click <a href="{{searchLocation}}">here</a> for all <b>{{searchTerm}}</b> results.
 </div>
@@ -168,7 +168,7 @@ divorce of content and presentation.
 
 The *highlightMatch* helper:
 
-````
+````javascript
 Handlebars.registerHelper( "highlightMatch", function( label, searchTerm ) {
 	if ( label instanceof Array ) {
 		label = label[0];
@@ -180,7 +180,7 @@ Handlebars.registerHelper( "highlightMatch", function( label, searchTerm ) {
 
 The *mediaIcon* helper:
 
-````
+````javascript
 // looks at type, sent in from template, and returns the css
 // class for the appropriate image icon
 Handlebars.registerHelper( "mediaIcon", function( type ) {
