@@ -82,44 +82,38 @@ var ac = new autocomplete({
 Any property of the response from the Autocomplete service that was generated through MetaQ will be available here, by name.  Also, the category name, as defined during instantation, is available.
 
 ````
-<div class="ac-results-container">
-	<ul class="ac-results-list">
-		<div class="ac-category">
-			<div class="ac-category-header ac-clearfix">
-				{{this.category}}
-			</div>
-			<div class="ac-category-content">
-				{{#each this.data}}
-					<div class="ac-image-card-large">
-						<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
-							{{#if this.displayName}}
-								{{highlightMatch ../this.displayName ../../this.searchTerm}}
-							{{else}}
-								{{highlightMatch ../this.term ../../this.searchTerm}}
-							{{/if}}
-						</a>
+<div class="ac-category ac-clearfix">
+	<div class="ac-category-header">
+		{{this.category}}
+	</div>
+	<div class="ac-category-content">
+		{{#each this.data}}
+			<div class="ac-image-card-large">
+				<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
+					{{#if this.displayName}}
+						{{highlightMatch ../this.displayName ../../this.searchTerm}}
+					{{else}}
+						{{highlightMatch ../this.term ../../this.searchTerm}}
+					{{/if}}
+				</a>
 
-						<div class="ac-image-items-large">
-							<ul class="ac-image-items-list">
-								{{#each this.data}}
-									{{#with this}}
-										<a class="ac-no-underline" href="{{[1]}}">
-											<li class="ac-image-item-large {{mediaIcon [3]}}">
-												{{[0]}}
-											</li>
-										</a>
-									{{/with}}
-								{{/each}}
-							</ul>
-						</div>
-					</div>
-					<div class="ac-clearfix"></div>
-				{{/each}}
+				<div class="ac-image-items-large">
+					<ul class="ac-image-items-list">
+						{{#each this.data}}
+							{{#with this}}
+								<a class="ac-no-underline" href="{{[1]}}">
+									<li class="ac-image-item-large {{mediaIcon [3]}}">
+										{{[0]}}
+									</li>
+								</a>
+							{{/with}}
+						{{/each}}
+					</ul>
+				</div>
 			</div>
-		</div>
-	</ul>
+		{{/each}}
+	</div>
 </div>
-<div class="ac-clearfix"></div>
 ````
 
 #####Delimited Category
@@ -127,39 +121,34 @@ Any property of the response from the Autocomplete service that was generated th
 To access the delimited data from the Autocomplete MetaQ response simply reference it by its position in the array that results from a *split* operation.  Again, the category name will be available.
 
 ````
-<div class="ac-results-container">
-	<ul class="ac-results-list">
-		<div class="ac-category">
-			<div class="ac-category-header ac-clearfix">
-				{{this.category}}
-			</div>
-			
-			<div class="ac-category-content">
-				{{#each this.data}}
-					{{#with this.data}}
-						<a href="{{Link}}" title="{{Title}}">
-							<div class="ac-image-card">
-								<div class="ac-image-crop">
-									<img class="ac-image" src="{{Thumbnail}}">
-								</div>
-								<div class="ac-image-caption-container">
-									<div class="ac-image-caption-text">
-										{{#if DisplayName}}
-											{{highlightMatch DisplayName ../../../this.searchTerm}}
-										{{else}}
-											{{highlightMatch Title ../../../this.searchTerm}}
-										{{/if}}
-									</div>
-								</div>
+<div class="ac-category ac-clearfix">
+	<div class="ac-category-header">
+		{{this.category}}
+	</div>
+	
+	<div class="ac-category-content">
+		{{#each this.data}}
+			{{#with this.data}}
+				<a href="{{Link}}" title="{{Title}}">
+					<div class="ac-image-card">
+						<div class="ac-image-crop">
+							<img class="ac-image" src="{{Thumbnail}}">
+						</div>
+						<div class="ac-image-caption-container">
+							<div class="ac-image-caption-text">
+								{{#if DisplayName}}
+									{{highlightMatch DisplayName ../../../this.searchTerm}}
+								{{else}}
+									{{highlightMatch Title ../../../this.searchTerm}}
+								{{/if}}
 							</div>
-						</a>
-					{{/with}}
-				{{/each}}
-			</div>
-		</div>
-	</ul>
+						</div>
+					</div>
+				</a>
+			{{/with}}
+		{{/each}}
+	</div>
 </div>
-<div class="ac-clearfix"></div>
 ````
 
 #####The Search Template

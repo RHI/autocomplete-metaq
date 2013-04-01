@@ -1,33 +1,28 @@
-<div class="ac-results-container">
-	<ul class="ac-results-list">
-		<div class="ac-category">
-			<div class="ac-category-header ac-clearfix">
-				{{this.category}}
-			</div>
-			
-			<div class="ac-category-content">
-				{{#each this.data}}
-					{{#with this.data}}
-						<a href="{{Link}}" title="{{Title}}">
-							<div class="ac-image-card">
-								<div class="ac-image-crop">
-									<img class="ac-image" src="{{Thumbnail}}">
-								</div>
-								<div class="ac-image-caption-container">
-									<div class="ac-image-caption-text">
-										{{#if DisplayName}}
-											{{highlightMatch DisplayName ../../../this.searchTerm}}
-										{{else}}
-											{{highlightMatch Title ../../../this.searchTerm}}
-										{{/if}}
-									</div>
-								</div>
+<div class="ac-category ac-clearfix">
+	<div class="ac-category-header">
+		{{this.category}}
+	</div>
+	
+	<div class="ac-category-content">
+		{{#each this.data}}
+			{{#with this.data}}
+				<a href="{{Link}}" title="{{Title}}">
+					<div class="ac-image-card">
+						<div class="ac-image-crop">
+							<img class="ac-image" src="{{Thumbnail}}">
+						</div>
+						<div class="ac-image-caption-container">
+							<div class="ac-image-caption-text">
+								{{#if DisplayName}}
+									{{highlightMatch DisplayName ../../../this.searchTerm}}
+								{{else}}
+									{{highlightMatch Title ../../../this.searchTerm}}
+								{{/if}}
 							</div>
-						</a>
-					{{/with}}
-				{{/each}}
-			</div>
-		</div>
-	</ul>
+						</div>
+					</div>
+				</a>
+			{{/with}}
+		{{/each}}
+	</div>
 </div>
-<div class="ac-clearfix"></div>
