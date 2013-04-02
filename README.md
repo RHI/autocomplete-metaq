@@ -22,7 +22,7 @@ This widget creates a function on the window object named *autocomplete*.  The c
 ````javascript
 var ac = new autocomplete({
 	search: "#search",
-	results: "#list .ac-results-container .ac-results-list",
+	results: "#list",
 	api: "//publishing.ramp.com/autocomplete/crackle",
 	searchLocation: "//sitename.com/search?searchTerm=",
 	searchTemplate: "tpl/search.handlebars",
