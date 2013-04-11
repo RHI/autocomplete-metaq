@@ -173,4 +173,5 @@ a.ac-image-caption-text-large {
 .ac-search-for-term {
 	text-align: center;
 	padding: 10px 0;
+	clear: both;
 }

@@ -4,29 +4,33 @@
 	</div>
 	<div class="ac-category-content">
 		{{#each this.data}}
-			<div class="ac-image-card-large">
-				<a class="ac-image-caption-text-large" href="{{this.sp.path}}">
-					{{#if this.displayName}}
-						{{highlightMatch ../this.displayName ../../this.searchTerm}}
-					{{else}}
-						{{highlightMatch ../this.term ../../this.searchTerm}}
-					{{/if}}
-				</a>
+			{{#hideActorIfNoMovie this.data}}
+				<div class="ac-image-card-large">
+					<a class="ac-image-caption-text-large" href="{{../this.sp.path}}">
+						{{#if ../this.displayName}}
+							{{highlightMatch ../../this.displayName ../../../this.searchTerm}}
+						{{else}}
+							{{highlightMatch ../../this.term ../../../this.searchTerm}}
+						{{/if}}
+					</a>
 
-				<div class="ac-image-items-large">
-					<ul class="ac-image-items-list">
-						{{#each this.data}}
-							{{#with this}}
-								<a class="ac-no-underline" href="{{[1]}}">
-									<li class="ac-image-item-large {{mediaIcon [3]}}">
-										{{[0]}}
-									</li>
-								</a>
-							{{/with}}
-						{{/each}}
-					</ul>
+					<div class="ac-image-items-large">
+						<ul class="ac-image-items-list">
+							{{#each ../this.data}}
+								{{#with this}}
+									{{#countryCodeFilter [5]}}
+									<a class="ac-no-underline" href="{{[1]}}">
+										<li class="ac-image-item-large {{mediaIcon [3]}}">
+											{{[0]}}
+										</li>
+									</a>
+									{{/countryCodeFilter}}
+								{{/with}}
+							{{/each}}
+						</ul>
+					</div>
 				</div>
-			</div>
+			{{/hideActorIfNoMovie}}
 		{{/each}}
 	</div>
 </div>

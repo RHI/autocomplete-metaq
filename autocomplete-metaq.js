@@ -61,11 +61,10 @@
 				}, 300 );
 			});
 
-			this.search.bind( "blur", function() {
-				self.results.hide();
-			});
-
-			this.results.bind( "blur", function() {
+			$('body').click(function( e ) {
+				if ( e.target.id.match( self.search.attr("id") ) ) {
+					return;
+				}
 				self.results.hide();
 			});
 		},
@@ -178,10 +177,12 @@
 				}
 			}
 
-			this.results.append( this.searchTemplate( {
-				searchTerm: this.search.val(),
-				searchUrl: this.searchLocation +this.search.val()
-			} ) );
+			if ( this.search.val() !== "" ) {
+				this.results.append( this.searchTemplate( {
+					searchTerm: this.search.val(),
+					searchUrl: this.searchLocation +this.search.val()
+				} ) );
+			}
 
 			this.results.show();
 		}

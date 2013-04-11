@@ -173,12 +173,32 @@
 					}
 				});
 
+				// Hides Actor if no movies have the country code we're looking for
+				Handlebars.registerHelper( "hideActorIfNoMovie", function( data, options ) {
+					var length = data.length,
+						i = 0;						
+
+					for ( i = 0; i < length; i++ ) {
+						if ( data[ i ][5].match("US") ) {
+							return options.fn( this );
+						}
+					}
+						
+				});
+
 				Handlebars.registerHelper( "highlightMatch", function( label, searchTerm ) {
 					if ( label instanceof Array ) {
 						label = label[0];
 					}
 					// should use regex to ignore case
 					return new Handlebars.SafeString( label.toLowerCase().replace( searchTerm.toLowerCase(), "<b>" +searchTerm +"</b>" ) );
+				});
+
+				// COUNTRY CODE HELPER FOR MOVIES FOR THE ACTOR TEMPLATE
+				Handlebars.registerHelper( "countryCodeFilter", function( countryCode, options ) {
+					if ( countryCode.match("US") ) {
+						return options.fn( this );
+					}
 				});
 
 				// MetaQ API
